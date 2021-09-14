@@ -33,5 +33,4 @@ function init_my_cnf {
     fi
 }
 
-init_config
-init_my_cnf
+init_config && init_my_cnf

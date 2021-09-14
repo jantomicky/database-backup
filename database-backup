@@ -30,6 +30,4 @@ function cleanup {
     fi
 }
 
-source_config
-backup_databases
-cleanup
+source_config && backup_databases && cleanup
