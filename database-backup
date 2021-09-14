@@ -8,7 +8,7 @@ function source_config {
         echo "Missing configuration file ($file_config)"
         exit 1
     fi
-    if ! grep -q "PATH_DATABASE_BACKUPS" "$file_config"; then
+    if ! grep -q "DATABASE_BACKUPS_PATH" "$file_config"; then
         echo "The configuration file does not contain the backups directory path"
         exit 1
     fi
