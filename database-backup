@@ -2,7 +2,7 @@
 
 file_my_cnf="$HOME/my.cnf"
 file_config="database-backup.config"
-ignore_databases="(^Database|mysql|_schema|sys$)"
+ignore_databases="(^mysql|_schema|sys$)"
 
 function source_config {
     if [ ! -f "$file_config" ]; then
@@ -18,7 +18,7 @@ function source_config {
 
 function backup_databases {
     timestamp=$(date +"%Y-%m-%d-%H%M")
-    mkdir -p $DATABASE_BACKUPS_PATH && mysql --defaults-file="$file_my_cnf" -e "SHOW DATABASES WHERE \`Database\` NOT REGEXP '$ignore_databases'" | while read database; do mysqldump --defaults-file="$file_my_cnf" --no-tablespaces "$database" | gzip > "$DATABASE_BACKUPS_PATH/$database.$timestamp.sql.gz"; done
+    mkdir -p $DATABASE_BACKUPS_PATH && mysql --defaults-file="$file_my_cnf" -N -e "SHOW DATABASES WHERE \`Database\` NOT REGEXP '$ignore_databases'" | while read database; do mysqldump --defaults-file="$file_my_cnf" --no-tablespaces "$database" | gzip > "$DATABASE_BACKUPS_PATH/$database.$timestamp.sql.gz"; done
 }
 
 function cleanup {
@@ -31,7 +31,7 @@ function cleanup {
 }
 
 function secure {
-    chmod 600 "$DATABASE_BACKUPS_PATH/*"
+    find $DATABASE_BACKUPS_PATH -type f -name "*.sql.gz" -exec chmod 0600 {} \;
 }
 
 source_config && backup_databases && cleanup && secure
