@@ -13,6 +13,7 @@ function init_config {
         echo "DATABASE_BACKUPS_PATH=$path_backups"
         echo "DATABASE_BACKUPS_KEEP_FOR_DAYS=$keep_for_days"
     } > $file_config
+    echo "Configuration saved to $file_config"
 }
 
 function init_my_cnf {
@@ -20,7 +21,7 @@ function init_my_cnf {
     touch $file_my_cnf
     chmod 600 $file_my_cnf
     if ! grep -q "[mysqldump]" "$file_my_cnf"; then
-        echo "Please provide your MySQL credentials"
+        echo "Please provide your database credentials"
         read -p "Username: " username
         read -s -p "Password: " password
         {
@@ -28,6 +29,7 @@ function init_my_cnf {
             echo "user=$username"
             echo "password=\"$password\""
         } >> $file_my_cnf
+        echo "Database credentials saved to $file_my_cnf"
     fi
 }
 
