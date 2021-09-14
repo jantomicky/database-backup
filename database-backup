@@ -16,10 +16,10 @@ function source_config {
 }
 
 function backup {
-    mkdir -p $PATH_DATABASE_BACKUPS
+    mkdir -p $DATABASE_BACKUPS_PATH
     timestamp=$(date +"%Y-%m-%d_%H%M")
-    mysqldump --defaults-file="$file_my_cnf" --all-databases --no-tablespaces | gzip > "$PATH_DATABASE_BACKUPS/$timestamp.sql.gz"
-    chmod -R 600 $PATH_DATABASE_BACKUPS
+    mysqldump --defaults-file="$file_my_cnf" --all-databases --no-tablespaces | gzip > "$DATABASE_BACKUPS_PATH/$timestamp.sql.gz"
+    chmod -R 600 $DATABASE_BACKUPS_PATH
 }
 
 function cleanup {
@@ -27,7 +27,7 @@ function cleanup {
         echo "Skipping the cleanup of backups as the number of days for keeping them is not configured"
     else
         echo "Cleaning up backups older than $DATABASE_BACKUPS_KEEP_FOR_DAYS days"
-        find "$PATH_DATABASE_BACKUPS/*.sql.gz" -mtime +$DATABASE_BACKUPS_KEEP_FOR_DAYS -type f -delete
+        find "$DATABASE_BACKUPS_PATH/*.sql.gz" -mtime +$DATABASE_BACKUPS_KEEP_FOR_DAYS -type f -delete
     fi
 }
 
