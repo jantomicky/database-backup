@@ -6,7 +6,7 @@ Bash script(s) for backing up MySQL / MariaDB databases with `mysqldump`, backup
 
 - (Recommended) Create a dedicated read only database user for the backup purposes:
 ```
-GRANT SELECT, LOCK TABLES ON *.* TO 'your-user'@'localhost' IDENTIFIED BY 'your-password';
+GRANT SELECT, LOCK TABLES, SHOW VIEW ON *.* TO 'your-user'@'localhost' IDENTIFIED BY 'your-password';
 ```
 - Clone the repo `git clone https://github.com/jantomicky/database-backup.git`
 - `cd database-backup/`

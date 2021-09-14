@@ -16,10 +16,9 @@ function source_config {
 }
 
 function backup {
-    mkdir -p $DATABASE_BACKUPS_PATH
     timestamp=$(date +"%Y-%m-%d_%H%M")
-    mysqldump --defaults-file="$file_my_cnf" --all-databases --no-tablespaces | gzip > "$DATABASE_BACKUPS_PATH/$timestamp.sql.gz"
-    chmod -R 600 $DATABASE_BACKUPS_PATH
+    file_backup="$DATABASE_BACKUPS_PATH/$timestamp.sql.gz"
+    mkdir -p $DATABASE_BACKUPS_PATH && mysqldump --defaults-file="$file_my_cnf" --all-databases --no-tablespaces | gzip > $file_backup && chmod 600 $file_backup
 }
 
 function cleanup {
