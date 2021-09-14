@@ -20,12 +20,12 @@ function init_my_cnf {
     file_my_cnf="$HOME/my.cnf"
     touch $file_my_cnf
     chmod 600 $file_my_cnf
-    if ! grep -q "[mysqldump]" "$file_my_cnf"; then
+    if ! grep -q "[client]" "$file_my_cnf"; then
         echo "Please provide your database credentials"
         read -p "Username: " username
         read -s -p "Password: " password
         {
-            echo "[mysqldump]"
+            echo "[client]"
             echo "user=$username"
             echo "password=\"$password\""
         } >> $file_my_cnf

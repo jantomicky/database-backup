@@ -2,6 +2,7 @@
 
 file_my_cnf="$HOME/my.cnf"
 file_config="database-backup.config"
+ignore_databases="(^mysql|_schema|sys$)"
 
 function source_config {
     if [ ! -f "$file_config" ]; then
@@ -15,10 +16,9 @@ function source_config {
     source $file_config
 }
 
-function backup {
-    timestamp=$(date +"%Y-%m-%d_%H%M")
-    file_backup="$DATABASE_BACKUPS_PATH/$timestamp.sql.gz"
-    mkdir -p $DATABASE_BACKUPS_PATH && mysqldump --defaults-file="$file_my_cnf" --all-databases --no-tablespaces | gzip > $file_backup && chmod 600 $file_backup
+function backup_databases {
+    timestamp=$(date +"%Y-%m-%d-%H%M")
+    mkdir -p $DATABASE_BACKUPS_PATH && mysql -e "SHOW DATABASES WHERE \`Database\` NOT REGEXP '$ignore_databases'" | while read database; do mysqldump --no-tablespaces "$database" | gzip > "$DATABASE_BACKUPS_PATH/$database.$timestamp.sql.gz" | chmod 600; done
 }
 
 function cleanup {
@@ -31,5 +31,5 @@ function cleanup {
 }
 
 source_config
-backup
+backup_databases
 cleanup
