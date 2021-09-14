@@ -1,0 +1,35 @@
+#!/bin/bash
+
+file_config="database-backup.config"
+def_path_backups="$HOME/database-backups"
+def_keep_for_days=10
+
+function init_config {
+    read -p "Enter the directory path to store the backups at ["$def_path_backups"]: " path_backups
+    path_backups=${path_backups:-$def_path_backups}
+    read -p "Number of days to keep the backups for ["$def_keep_for_days"]: " keep_for_days
+    keep_for_days=${keep_for_days:-$def_keep_for_days}
+    {
+        echo "DATABASE_BACKUPS_PATH=$path_backups"
+        echo "DATABASE_BACKUPS_KEEP_FOR_DAYS=$keep_for_days"
+    } > $file_config
+}
+
+function init_my_cnf {
+    file_my_cnf="$HOME/my.cnf"
+    touch $file_my_cnf
+    chmod 600 $file_my_cnf
+    if ! grep -q "[mysqldump]" "$file_my_cnf"; then
+        echo "Please provide your MySQL credentials"
+        read -p "Username: " username
+        read -s -p "Password: " password
+        {
+            echo "[mysqldump]"
+            echo "user=$username"
+            echo "password=\"$password\""
+        } >> $file_my_cnf
+    fi
+}
+
+init_config
+init_my_cnf
