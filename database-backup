@@ -25,7 +25,6 @@ function cleanup {
     if [[ -z "${DATABASE_BACKUPS_KEEP_FOR_DAYS}" ]]; then
         echo "Skipping the cleanup of backups as the number of days for keeping them is not configured"
     else
-        echo "Cleaning up backups older than $DATABASE_BACKUPS_KEEP_FOR_DAYS days"
         find $DATABASE_BACKUPS_PATH -type f -name "*.sql.gz" -mtime +$DATABASE_BACKUPS_KEEP_FOR_DAYS -delete
     fi
 }
