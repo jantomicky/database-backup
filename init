@@ -29,6 +29,7 @@ function init_my_cnf {
             echo "user=$username"
             echo "password=\"$password\""
         } >> $file_my_cnf
+        echo ""
         echo "Database credentials saved to $file_my_cnf"
     fi
 }
