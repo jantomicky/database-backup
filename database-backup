@@ -1,7 +1,7 @@
 #!/bin/bash
 
 file_my_cnf="$HOME/my.cnf"
-file_config="database-backup.config"
+file_config="$BASH_SOURCE/database-backup.config"
 ignore_databases="(^mysql|_schema|sys|information_schema|performance_schema$)"
 
 function source_config {

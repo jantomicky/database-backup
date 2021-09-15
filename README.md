@@ -1,6 +1,6 @@
 # database-backup
 
-Bash script(s) for backing up MySQL / MariaDB databases with `mysqldump`, backups are timestamped, archived and optionally pruned based on age.
+Bash script(s) for backing up MySQL / MariaDB databases with `mysqldump`, backups are timestamped, archived and optionally pruned based on age. Bash is required as the scripts use Bash specific features.
 
 ## Setup
 
