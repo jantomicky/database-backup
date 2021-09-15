@@ -2,7 +2,7 @@
 
 file_my_cnf="$HOME/my.cnf"
 file_config="database-backup.config"
-ignore_databases="(^mysql|_schema|sys$)"
+ignore_databases="(^mysql|_schema|sys|information_schema|performance_schema$)"
 
 function source_config {
     if [ ! -f "$file_config" ]; then
