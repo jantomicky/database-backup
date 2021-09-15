@@ -1,6 +1,7 @@
 #!/bin/bash
 
-file_config="database-backup.config"
+dir_source=$(dirname "$BASH_SOURCE")
+file_config="$dir_source/database-backup.config"
 def_path_backups="$HOME/database-backups"
 def_keep_for_days=10
 
