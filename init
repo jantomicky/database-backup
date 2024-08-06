@@ -33,14 +33,14 @@ function init_my_cnf {
   chmod 0600 "$my_cnf_path"
 
   if ! grep -q "[client]" "$my_cnf_path"; then
-      if [ -n "$DB_USERNAME" ]; then
-          username="$DB_USERNAME"
+      if [ -n "$DATABASE_BACKUPS_USERNAME" ]; then
+          username="$DATABASE_BACKUPS_USERNAME"
       else
           read -r -p "Username: " username
       fi
 
-      if [ -n "$DB_PASSWORD" ]; then
-          password="$DB_PASSWORD"
+      if [ -n "$DATABASE_BACKUPS_PASSWORD" ]; then
+          password="$DATABASE_BACKUPS_PASSWORD"
       else
           read -r -s -p "Password: " password
       fi
