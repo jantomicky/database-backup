@@ -16,12 +16,13 @@ CREATE USER 'your-user'@'%' IDENTIFIED BY 'your-password'; GRANT SHOW DATABASES,
 
 - Clone the repo `git clone https://github.com/jantomicky/database-backup.git`
 - `cd database-backup/`
-- Run `./init` to generate a configuration file and pass your database credentials (which are saved in `$HOME/my.conf`)
+- Run `./init` to generate a configuration file and pass your database credentials (which are saved in `$HOME/my.cnf`)
   - You can set ENV variables for "no interaction" setup:
     - `DATABASE_BACKUPS_PATH`
     - `DATABASE_BACKUPS_KEEP_FOR_DAYS`
     - `DATABASE_BACKUPS_USERNAME`
     - `DATABASE_BACKUPS_PASSWORD`
+- (Optional) Set `host=` in your `$HOME/my.cnf` if the target host is not `localhost`
 - Create a backup by running `./database-backup`
 - (Recommended) Setup automatic backups with cron (`crontab -e`):
 ```
